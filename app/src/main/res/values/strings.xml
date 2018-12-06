@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">android-searchproduct-mvp</string>
+    <string name="main_menu_search_title">Search</string>
+    <string name="img">img</string>
+</resources>
