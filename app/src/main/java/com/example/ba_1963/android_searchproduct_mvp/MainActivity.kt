@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), SearchContract.View {
     private val itemPresenter: SearchContract.Presenter = SearchPresenter(this, SearchRepository())
     private val itemAdapter = SearchAdapter()
-    private var currPage: Int = 1
+    private var currPage: Int = 0
     private val recLayoutManager: GridLayoutManager = GridLayoutManager(
             this@MainActivity,
             2
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), SearchContract.View {
                         adapter = itemAdapter
                     }
                     swipeRefreshLayout.setOnRefreshListener{
-                        currPage = 1
+                        currPage = 0
                         itemPresenter.search(query, currPage)
                     }
 

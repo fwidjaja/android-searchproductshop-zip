@@ -11,7 +11,6 @@ interface SearchContract {
     }
 
     interface Presenter {
-        fun update(q: String?)
         fun search(q: String?, start: Int)
         fun onEndListReached(q: String?)
         fun disposeComposite()
