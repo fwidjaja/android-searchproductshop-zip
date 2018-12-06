@@ -95,4 +95,9 @@ class MainActivity : AppCompatActivity(), SearchContract.View {
     override fun loadNextPage(newItems: MutableList<DataItemUiModel>) {
         itemAdapter.loadNextPage(newItems = newItems)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        itemPresenter.disposeComposite()
+    }
 }

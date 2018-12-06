@@ -3,10 +3,12 @@ package com.example.ba_1963.android_searchproduct_mvp.api
 import com.example.ba_1963.android_searchproduct_mvp.BuildConfig
 import com.example.ba_1963.android_searchproduct_mvp.model.data.ResultSearchDataModel
 import com.example.ba_1963.android_searchproduct_mvp.util.Constants
+import io.reactivex.Single
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -24,6 +26,7 @@ interface API {
                             .build()
 
                     mInstance = Retrofit.Builder()
+                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                             .addConverterFactory(GsonConverterFactory.create())
                             .baseUrl(Constants.BASE_URL)
                             .client(okHttpClient)
@@ -34,5 +37,5 @@ interface API {
     }
 
     @GET("search/v1/product")
-    fun getSearch(@Query("q") q: String?, @Query("start") start: Int) : Call<ResultSearchDataModel?>
+    fun getSearch(@Query("q") q: String?, @Query("start") start: Int) : Single<ResultSearchDataModel?>
 }

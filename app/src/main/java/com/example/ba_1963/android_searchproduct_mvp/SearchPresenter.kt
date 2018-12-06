@@ -2,7 +2,6 @@ package com.example.ba_1963.android_searchproduct_mvp
 
 import com.example.ba_1963.android_searchproduct_mvp.model.ui.DataItemUiModel
 
-
 class SearchPresenter(private val view: SearchContract.View, private val dataSource: SearchDataSource) : SearchContract.Presenter {
     private var currentPage = 1
 
@@ -52,5 +51,9 @@ class SearchPresenter(private val view: SearchContract.View, private val dataSou
                     view.loadNextPage(newItems = newItems)
                     currentPage++
                 })
+    }
+
+    override fun disposeComposite() {
+        dataSource.dispose()
     }
 }

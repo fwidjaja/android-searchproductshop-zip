@@ -46,6 +46,12 @@ dependencies {
     // Retrofit log
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 
+    // Retrofit RxJava
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
+
     // Coroutines for Retrofit 2
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
 

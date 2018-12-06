@@ -9,4 +9,6 @@ interface SearchDataSource {
             List<DataItemUiModel>?
         ) -> Unit
     )
+
+    fun dispose()
 }
