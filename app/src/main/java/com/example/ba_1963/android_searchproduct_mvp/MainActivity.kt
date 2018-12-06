@@ -3,6 +3,7 @@ package com.example.ba_1963.android_searchproduct_mvp
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.View
@@ -10,8 +11,6 @@ import com.example.ba_1963.android_searchproduct_mvp.model.ui.DataItemUiModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), SearchContract.View {
-    private val tag = this::class.java.simpleName
-
     private val itemPresenter: SearchContract.Presenter = SearchPresenter(this, SearchRepository())
     private val itemAdapter = SearchAdapter()
     private var currPage: Int = 1
@@ -42,34 +41,21 @@ class MainActivity : AppCompatActivity(), SearchContract.View {
                         itemPresenter.search(query, currPage)
                     }
 
-                    /*var previousTotal = 0
-                    var loading = true
-                    val visibleThreshold = 10
-
-                    val visibleItemCount = itemList.childCount
-                    val firstVisibleItem = recLayoutManager.findFirstVisibleItemPosition()
-
+                    var visibleItemCount: Int
+                    var totalItemCount: Int
+                    var pastVisibleItem: Int
                     itemList.addOnScrollListener(object: RecyclerView.OnScrollListener() {
                         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                             super.onScrolled(recyclerView, dx, dy)
 
-                            if (loading) {
-                                if (totalItemCount > previousTotal) {
-                                    loading = false
-                                }
+                            visibleItemCount = recLayoutManager.childCount
+                            totalItemCount = recLayoutManager.itemCount
+                            pastVisibleItem = recLayoutManager.findFirstVisibleItemPosition()
+                            if ((visibleItemCount + pastVisibleItem) >= totalItemCount) {
+                                itemPresenter.onEndListReached(q = query)
                             }
-
-                            println("++ loading = $loading")
-                            println("++ totalItemCount = $totalItemCount")
-                            println("++ visibleItemCount = $visibleItemCount")
-                            println("++ firstVisibleItem = $firstVisibleItem")
-                            if (!loading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-                                itemPresenter.search(query, currPage+1)
-                                loading = true
-                            }
-
                         }
-                    })*/
+                    })
 
                     itemPresenter.search(query, currPage)
                     return false

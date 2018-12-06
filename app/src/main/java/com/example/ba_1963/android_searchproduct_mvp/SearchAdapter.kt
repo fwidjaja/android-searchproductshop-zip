@@ -44,12 +44,9 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun loadNextPage(newItems: MutableList<DataItemUiModel>) {
-        val newData = mutableListOf<DataItemUiModel>().also {
-            it.addAll(data)
-            it.addAll(it.size - 1, newItems)
-        }
-        this.data.replace(newData)
+    fun loadNextPage(newItems: List<DataItemUiModel>) {
+        data.addAll(newItems)
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

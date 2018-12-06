@@ -3,7 +3,7 @@ package com.example.ba_1963.android_searchproduct_mvp
 import com.example.ba_1963.android_searchproduct_mvp.model.ui.DataItemUiModel
 
 class SearchPresenter(private val view: SearchContract.View, private val dataSource: SearchDataSource) : SearchContract.Presenter {
-    private var currentPage = 1
+    private var currentPage = 0
 
     override fun update(q: String?) {
         currentPage = 1
@@ -41,7 +41,7 @@ class SearchPresenter(private val view: SearchContract.View, private val dataSou
     override fun onEndListReached(q: String?) {
         dataSource.getData(
                 q = q,
-                start = currentPage + 1,
+                start = currentPage + 10,
                 onSuccess = { datas ->
                     val newItems = mutableListOf<DataItemUiModel>()
 
@@ -49,7 +49,7 @@ class SearchPresenter(private val view: SearchContract.View, private val dataSou
                         newItems.addAll(data)
                     }
                     view.loadNextPage(newItems = newItems)
-                    currentPage++
+                    currentPage += 10
                 })
     }
 
