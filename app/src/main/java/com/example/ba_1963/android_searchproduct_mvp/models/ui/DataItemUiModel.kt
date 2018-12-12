@@ -1,6 +1,6 @@
-package com.example.ba_1963.android_searchproduct_mvp.model.ui
+package com.example.ba_1963.android_searchproduct_mvp.models.ui
 
-import com.example.ba_1963.android_searchproduct_mvp.model.data.ShopDataModel
+import com.example.ba_1963.android_searchproduct_mvp.models.data.ShopDataModel
 
 data class DataItemUiModel (
         var itemId: Long? = null,

@@ -1,6 +1,6 @@
-package com.example.ba_1963.android_searchproduct_mvp.model.data
+package com.example.ba_1963.android_searchproduct_mvp.models.data
 
-import com.example.ba_1963.android_searchproduct_mvp.model.ui.DataItemUiModel
+import com.example.ba_1963.android_searchproduct_mvp.models.ui.DataItemUiModel
 import com.google.gson.annotations.SerializedName
 
 data class DataItemDataModel (@SerializedName("id") val itemId: Long? = 0L,

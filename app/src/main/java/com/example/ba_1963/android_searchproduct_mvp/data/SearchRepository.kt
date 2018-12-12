@@ -1,14 +1,17 @@
-package com.example.ba_1963.android_searchproduct_mvp
+package com.example.ba_1963.android_searchproduct_mvp.data
 
-import com.example.ba_1963.android_searchproduct_mvp.api.API
-import com.example.ba_1963.android_searchproduct_mvp.model.ui.DataItemUiModel
+import com.example.ba_1963.android_searchproduct_mvp.api.ApiServiceInterface
+import com.example.ba_1963.android_searchproduct_mvp.models.ui.DataItemUiModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
+import javax.inject.Named
 
 class SearchRepository : SearchDataSource {
     private var isLoading = false
     private val compositeDisposable = CompositeDisposable()
+    private val api: ApiServiceInterface = ApiServiceInterface.create()
 
     override fun getData(
         q: String?, start: Int, onSuccess: (
@@ -18,7 +21,7 @@ class SearchRepository : SearchDataSource {
         if (isLoading) return
         isLoading = true
 
-        compositeDisposable.add(API.instance.getSearch(q, start)
+        compositeDisposable.add(api.getSearch(q, start)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ resultSearchDataModel ->

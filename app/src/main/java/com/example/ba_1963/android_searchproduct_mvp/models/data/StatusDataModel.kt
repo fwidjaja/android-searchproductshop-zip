@@ -1,6 +1,6 @@
-package com.example.ba_1963.android_searchproduct_mvp.model.data
+package com.example.ba_1963.android_searchproduct_mvp.models.data
 
-import com.example.ba_1963.android_searchproduct_mvp.model.ui.StatusUiModel
+import com.example.ba_1963.android_searchproduct_mvp.models.ui.StatusUiModel
 import com.google.gson.annotations.SerializedName
 
 data class StatusDataModel (@SerializedName("error_code") val errorCode: Int? = 0,

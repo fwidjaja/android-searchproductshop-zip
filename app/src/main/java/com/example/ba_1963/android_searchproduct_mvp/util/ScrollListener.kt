@@ -2,7 +2,7 @@ package com.example.ba_1963.android_searchproduct_mvp.util
 
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.example.ba_1963.android_searchproduct_mvp.SearchPresenter
+import com.example.ba_1963.android_searchproduct_mvp.search.SearchPresenter
 
 class ScrollListener(val layoutManager: GridLayoutManager, val itemPresenter: SearchPresenter, val query: String, val currPage: Int) : RecyclerView.OnScrollListener() {
     var previousTotal = 0

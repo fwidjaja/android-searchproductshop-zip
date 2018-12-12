@@ -1,14 +1,24 @@
-package com.example.ba_1963.android_searchproduct_mvp
+package com.example.ba_1963.android_searchproduct_mvp.search
 
-import com.example.ba_1963.android_searchproduct_mvp.model.ui.DataItemUiModel
+import com.example.ba_1963.android_searchproduct_mvp.data.SearchDataSource
+import com.example.ba_1963.android_searchproduct_mvp.models.ui.DataItemUiModel
+import javax.inject.Inject
 
-class SearchPresenter(private val view: SearchContract.View, private val dataSource: SearchDataSource) : SearchContract.Presenter {
+class SearchPresenter : SearchContract.Presenter {
     private var currentPage = 0
+    var _view: SearchContract.View? = null
+    var _dataSource: SearchDataSource? = null
+
+    @Inject
+    fun SearchPresenter(view: SearchContract.View, dataSource: SearchDataSource) {
+        _view = view
+        _dataSource = dataSource
+    }
 
     override fun search(q: String?, start: Int) {
         currentPage = 0
-        view.showLoading(true)
-        dataSource.getData(
+        _view?.showLoading(true)
+        _dataSource?.getData(
                 q = q,
                 start = start,
                 onSuccess = { datas ->
@@ -17,13 +27,13 @@ class SearchPresenter(private val view: SearchContract.View, private val dataSou
                     datas?.let { data ->
                         items.addAll(data)
                     }
-                    view.update(items)
-                    view.showLoading(false)
+                    _view?.update(items)
+                    _view?.showLoading(false)
                 })
     }
 
     override fun onEndListReached(q: String?) {
-        dataSource.getData(
+        _dataSource?.getData(
                 q = q,
                 start = currentPage + 10,
                 onSuccess = { datas ->
@@ -32,12 +42,12 @@ class SearchPresenter(private val view: SearchContract.View, private val dataSou
                     datas?.let { data ->
                         newItems.addAll(data)
                     }
-                    view.loadNextPage(newItems = newItems)
+                    _view?.loadNextPage(newItems = newItems)
                     currentPage += 10
                 })
     }
 
     override fun disposeComposite() {
-        dataSource.dispose()
+        _dataSource?.dispose()
     }
 }

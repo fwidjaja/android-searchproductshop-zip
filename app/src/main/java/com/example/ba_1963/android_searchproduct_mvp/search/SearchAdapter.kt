@@ -1,12 +1,12 @@
-package com.example.ba_1963.android_searchproduct_mvp
+package com.example.ba_1963.android_searchproduct_mvp.search
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.ba_1963.android_searchproduct_mvp.model.ui.DataItemUiModel
+import com.example.ba_1963.android_searchproduct_mvp.R
+import com.example.ba_1963.android_searchproduct_mvp.models.ui.DataItemUiModel
 import com.example.ba_1963.android_searchproduct_mvp.util.GlideApp
-import com.example.ba_1963.android_searchproduct_mvp.util.extensions.replace
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class SearchAdapter : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {

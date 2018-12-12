@@ -1,6 +1,6 @@
-package com.example.ba_1963.android_searchproduct_mvp
+package com.example.ba_1963.android_searchproduct_mvp.search
 
-import com.example.ba_1963.android_searchproduct_mvp.model.ui.DataItemUiModel
+import com.example.ba_1963.android_searchproduct_mvp.models.ui.DataItemUiModel
 
 
 interface SearchContract {

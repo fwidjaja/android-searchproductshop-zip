@@ -1,6 +1,6 @@
-package com.example.ba_1963.android_searchproduct_mvp.model.data
+package com.example.ba_1963.android_searchproduct_mvp.models.data
 
-import com.example.ba_1963.android_searchproduct_mvp.model.ui.ResultSearchUiModel
+import com.example.ba_1963.android_searchproduct_mvp.models.ui.ResultSearchUiModel
 import com.google.gson.annotations.SerializedName
 
 

@@ -1,27 +1,32 @@
-package com.example.ba_1963.android_searchproduct_mvp
+package com.example.ba_1963.android_searchproduct_mvp.search
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.View
-import com.example.ba_1963.android_searchproduct_mvp.model.ui.DataItemUiModel
+import com.example.ba_1963.android_searchproduct_mvp.R
+import com.example.ba_1963.android_searchproduct_mvp.models.ui.DataItemUiModel
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), SearchContract.View {
-    private val itemPresenter: SearchContract.Presenter = SearchPresenter(this, SearchRepository())
+class SearchActivity : AppCompatActivity(), SearchContract.View {
+    @Inject
+    lateinit var itemPresenter: SearchContract.Presenter
+
     private val itemAdapter = SearchAdapter()
     private var currPage: Int = 0
     private val recLayoutManager: GridLayoutManager = GridLayoutManager(
-            this@MainActivity,
+            this@SearchActivity,
             2
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         progressBar.visibility = View.GONE
     }
 
