@@ -1,33 +1,38 @@
-package com.example.ba_1963.android_searchproduct_mvp.search
+package com.example.ba_1963.android_searchproduct_mvp.presentation
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SearchView
 import android.view.Menu
-import android.view.View
+import com.example.ba_1963.android_searchproduct_mvp.App
 import com.example.ba_1963.android_searchproduct_mvp.R
-import com.example.ba_1963.android_searchproduct_mvp.models.ui.DataItemUiModel
+import com.example.ba_1963.android_searchproduct_mvp.presentation.models.DataItemUiModel
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class SearchActivity : AppCompatActivity(), SearchContract.View {
-    @Inject
-    lateinit var itemPresenter: SearchContract.Presenter
+class MainActivity : AppCompatActivity(), SearchView {
 
+    @Inject
+    lateinit var presenter: SearchPresenter
     private val itemAdapter = SearchAdapter()
     private var currPage: Int = 0
     private val recLayoutManager: GridLayoutManager = GridLayoutManager(
-            this@SearchActivity,
+            this@MainActivity,
             2
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        App.appComponent.inject(this)
 
-        progressBar.visibility = View.GONE
+        presenter.onViewCreated(this)
+    }
+
+    override fun onDestroy() {
+        presenter.onViewDestroyed()
+        super.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -35,7 +40,7 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
             menuInflater.inflate(R.menu.main_menu, menu)
 
             val searchMenu = menu.findItem(R.id.action_search)
-            (searchMenu.actionView as SearchView).setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            (searchMenu.actionView as android.support.v7.widget.SearchView).setOnQueryTextListener(object : android.support.v7.widget.SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     itemList.apply {
                         layoutManager = recLayoutManager
@@ -43,7 +48,7 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
                     }
                     swipeRefreshLayout.setOnRefreshListener{
                         currPage = 0
-                        itemPresenter.search(query, currPage)
+                        presenter.onSearchButtonPressed(query = query, start = currPage)
                     }
 
                     var visibleItemCount: Int
@@ -57,12 +62,12 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
                             totalItemCount = recLayoutManager.itemCount
                             pastVisibleItem = recLayoutManager.findFirstVisibleItemPosition()
                             if ((visibleItemCount + pastVisibleItem) >= totalItemCount) {
-                                itemPresenter.onEndListReached(q = query)
+                                presenter.onLoadNextPage()
                             }
                         }
                     })
 
-                    itemPresenter.search(query, currPage)
+                    presenter.onSearchButtonPressed(query = query, start = currPage)
                     return false
                 }
 
@@ -85,10 +90,5 @@ class SearchActivity : AppCompatActivity(), SearchContract.View {
 
     override fun loadNextPage(newItems: MutableList<DataItemUiModel>) {
         itemAdapter.loadNextPage(newItems = newItems)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        itemPresenter.disposeComposite()
     }
 }

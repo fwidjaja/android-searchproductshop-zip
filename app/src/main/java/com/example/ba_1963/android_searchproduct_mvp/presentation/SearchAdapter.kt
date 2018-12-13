@@ -1,11 +1,11 @@
-package com.example.ba_1963.android_searchproduct_mvp.search
+package com.example.ba_1963.android_searchproduct_mvp.presentation
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ba_1963.android_searchproduct_mvp.R
-import com.example.ba_1963.android_searchproduct_mvp.models.ui.DataItemUiModel
+import com.example.ba_1963.android_searchproduct_mvp.presentation.models.DataItemUiModel
 import com.example.ba_1963.android_searchproduct_mvp.util.GlideApp
 import kotlinx.android.synthetic.main.list_item.view.*
 
