@@ -3,7 +3,7 @@ package com.example.ba_1963.android_searchproduct_mvp.dagger
 import android.content.Context
 import com.example.ba_1963.android_searchproduct_mvp.App
 import com.example.ba_1963.android_searchproduct_mvp.BuildConfig
-import com.example.ba_1963.android_searchproduct_mvp.api.ApiServiceInterface
+import com.example.ba_1963.android_searchproduct_mvp.api.SearchApi
 import com.example.ba_1963.android_searchproduct_mvp.data.SearchRepository
 import com.example.ba_1963.android_searchproduct_mvp.data.SearchRepositoryInterface
 import com.example.ba_1963.android_searchproduct_mvp.util.Constants
@@ -44,9 +44,10 @@ class AppModule(private val app: App) {
                 .build()
     }
 
+
     @Provides
     @Singleton
     fun provideUserRepository(): SearchRepositoryInterface {
-        return SearchRepository()
+        return SearchRepository(provideRetrofit().create(SearchApi::class.java))
     }
 }
