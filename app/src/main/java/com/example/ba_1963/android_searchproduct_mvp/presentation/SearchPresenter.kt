@@ -4,21 +4,22 @@ import com.example.ba_1963.android_searchproduct_mvp.domain.SearchUseCase
 import javax.inject.Inject
 
 class SearchPresenter @Inject constructor(private val searchUseCase: SearchUseCase) {
-    var _view: SearchView? = null
-    var _page: Int = 0
-    var _query: String? = null
+    private var _view: SearchView? = null
+    private var _start: Int = 0
+    private var _query: String? = null
 
     fun onSearchButtonPressed(query: String?, start: Int) {
         _view?.let { view ->
             _query = query
-            _query?.let { it ->
-                _page = start
-                _page?.let {
+            _query?.let { _ ->
+                _start = start
+                _start.let { start ->
                     view.showLoading(true)
                     searchUseCase.getData(_query, start)
                             ?.subscribe { resultSearchUiModel ->
                                 resultSearchUiModel?.datas?.let {
                                     view.update(it)
+                                    view.showLoading(false)
                                 }
                             }
                 }
@@ -28,14 +29,16 @@ class SearchPresenter @Inject constructor(private val searchUseCase: SearchUseCa
 
     fun onLoadNextPage() {
         _view?.let { view ->
-            searchUseCase.getData(_query, _page+1)
+            view.showLoading(true)
+            searchUseCase.getData(_query, _start+10)
                     ?.subscribe { resultSearchUiModel ->
                         resultSearchUiModel?.datas?.let {
-                            _page += 1
                             view.loadNextPage(it)
+                            view.showLoading(false)
                         }
                     }
         }
+        _start += 10
     }
 
     fun onViewCreated(view: SearchView) {

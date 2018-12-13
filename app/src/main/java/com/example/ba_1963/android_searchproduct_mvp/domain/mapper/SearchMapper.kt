@@ -10,7 +10,31 @@ import com.example.ba_1963.android_searchproduct_mvp.presentation.models.ResultS
 import com.example.ba_1963.android_searchproduct_mvp.presentation.models.StatusUiModel
 
 object SearchMapper {
-    fun dataToUiModel(dataItemDataModel: DataItemDataModel) : DataItemUiModel? {
+    fun resultToUiModel(resultSearchDataModel: ResultSearchDataModel): ResultSearchUiModel? {
+        resultSearchDataModel.status?.let { status ->
+            resultSearchDataModel.datas?.let { datas ->
+                return ResultSearchUiModel(
+                        status = statusToUiModel(status),
+                        datas = datas.map {
+                            dataToUiModel(it)
+                        }.filter { it != null }.map { it!! }
+                )
+            }
+        } ?: return null
+    }
+
+    private fun statusToUiModel(statusDataModel: StatusDataModel): StatusUiModel? {
+        statusDataModel.errorCode?.let { errorCode ->
+            statusDataModel.message?.let { message ->
+                return StatusUiModel(
+                        errorCode = errorCode,
+                        message = message
+                )
+            }
+        } ?: return null
+    }
+
+    private fun dataToUiModel(dataItemDataModel: DataItemDataModel) : DataItemUiModel? {
         dataItemDataModel.itemId?.let { itemId ->
             dataItemDataModel.itemName?.let { itemName ->
                 dataItemDataModel.itemUri?.let { itemUri ->
@@ -29,19 +53,6 @@ object SearchMapper {
                         }
                     }
                 }
-            }
-        } ?: return null
-    }
-
-    fun resultToUiModel(resultSearchDataModel: ResultSearchDataModel): ResultSearchUiModel? {
-        resultSearchDataModel.status?.let { status ->
-            resultSearchDataModel.datas?.let { datas ->
-                return ResultSearchUiModel(
-                        status = statusToUiModel(status),
-                        datas = datas.map {
-                            dataToUiModel(it)
-                        }.filter { it != null }.map { it!! }
-                )
             }
         } ?: return null
     }
@@ -74,17 +85,6 @@ object SearchMapper {
                         }
                     }
                 }
-            }
-        } ?: return null
-    }
-
-    fun statusToUiModel(statusDataModel: StatusDataModel): StatusUiModel? {
-        statusDataModel.errorCode?.let { errorCode ->
-            statusDataModel.message?.let { message ->
-                return StatusUiModel(
-                        errorCode = errorCode,
-                        message = message
-                )
             }
         } ?: return null
     }

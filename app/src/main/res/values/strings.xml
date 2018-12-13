@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">android-searchproduct-mvp-rxjava</string>
+    <string name="app_name">searchproduct-mvp-rxjava2-dagger2-clean</string>
     <string name="main_menu_search_title">Search</string>
     <string name="img">img</string>
 </resources>

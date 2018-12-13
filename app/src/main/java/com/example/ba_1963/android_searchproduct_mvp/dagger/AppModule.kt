@@ -17,11 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class AppModule(private val app: App) {
-
-    @Provides
-    @Singleton
-    fun provideApplicationContext(): Context = app
+class AppModule {
 
     @Provides
     @Singleton
@@ -35,19 +31,18 @@ class AppModule(private val app: App) {
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
+    fun provideSearchRepository(): SearchRepositoryInterface {
+        return SearchRepository(provideSearchApi())
+    }
+
+    @Provides
+    @Singleton
+    fun provideSearchApi() : SearchApi {
         return retrofit2.Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(Constants.BASE_URL)
                 .client(provideOkHttpClient())
-                .build()
-    }
-
-
-    @Provides
-    @Singleton
-    fun provideUserRepository(): SearchRepositoryInterface {
-        return SearchRepository(provideRetrofit().create(SearchApi::class.java))
+                .build().create(SearchApi::class.java)
     }
 }

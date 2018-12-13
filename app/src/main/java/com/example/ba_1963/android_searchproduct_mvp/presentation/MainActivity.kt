@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity(), SearchView {
     lateinit var presenter: SearchPresenter
     private val itemAdapter = SearchAdapter()
     private var currPage: Int = 0
+    private var isLoading = false
     private val recLayoutManager: GridLayoutManager = GridLayoutManager(
             this@MainActivity,
             2
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity(), SearchView {
                             visibleItemCount = recLayoutManager.childCount
                             totalItemCount = recLayoutManager.itemCount
                             pastVisibleItem = recLayoutManager.findFirstVisibleItemPosition()
-                            if ((visibleItemCount + pastVisibleItem) >= totalItemCount) {
+                            if ((visibleItemCount + pastVisibleItem) >= totalItemCount && !isLoading) {
                                 presenter.onLoadNextPage()
                             }
                         }
@@ -84,6 +85,7 @@ class MainActivity : AppCompatActivity(), SearchView {
     }
 
     override fun showLoading(show: Boolean) {
+        isLoading = show
         swipeRefreshLayout.isRefreshing = show
     }
 
