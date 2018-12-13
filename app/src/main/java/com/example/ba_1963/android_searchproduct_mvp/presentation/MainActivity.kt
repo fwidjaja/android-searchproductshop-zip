@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), SearchView {
-
     @Inject
     lateinit var presenter: SearchPresenter
     private val itemAdapter = SearchAdapter()
@@ -80,7 +79,7 @@ class MainActivity : AppCompatActivity(), SearchView {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun update(newData: MutableList<DataItemUiModel>) {
+    override fun update(newData: List<DataItemUiModel>) {
         itemAdapter.updateData(newData)
     }
 
@@ -88,7 +87,7 @@ class MainActivity : AppCompatActivity(), SearchView {
         swipeRefreshLayout.isRefreshing = show
     }
 
-    override fun loadNextPage(newItems: MutableList<DataItemUiModel>) {
+    override fun loadNextPage(newItems: List<DataItemUiModel>) {
         itemAdapter.loadNextPage(newItems = newItems)
     }
 }
