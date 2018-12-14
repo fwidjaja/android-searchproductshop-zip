@@ -1,10 +1,12 @@
 package com.example.ba_1963.android_searchproduct_mvp.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
+import android.view.MenuItem
 import com.example.ba_1963.android_searchproduct_mvp.App
 import com.example.ba_1963.android_searchproduct_mvp.R
 import com.example.ba_1963.android_searchproduct_mvp.presentation.adapter.SearchAdapter
@@ -43,7 +45,12 @@ class MainActivity : AppCompatActivity(), SearchView {
             val searchMenu = menu.findItem(R.id.action_search)
             (searchMenu.actionView as android.support.v7.widget.SearchView).setOnQueryTextListener(object : android.support.v7.widget.SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    itemList.apply {
+
+                    val intent = Intent(this@MainActivity, SearchActivity::class.java)
+                    intent.putExtra("query", query)
+                    startActivity(intent)
+
+                    /*itemList.apply {
                         layoutManager = recLayoutManager
                         adapter = itemAdapter
                     }
@@ -68,7 +75,7 @@ class MainActivity : AppCompatActivity(), SearchView {
                                 presenter.onLoadNextPage()
                             }
                         }
-                    })
+                    })*/
                     return false
                 }
 
