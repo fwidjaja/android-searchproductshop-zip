@@ -1,4 +1,4 @@
-package com.example.ba_1963.android_searchproduct_mvp.presentation
+package com.example.ba_1963.android_searchproduct_mvp.presentation.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

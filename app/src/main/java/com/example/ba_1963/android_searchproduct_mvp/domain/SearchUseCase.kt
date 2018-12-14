@@ -2,7 +2,6 @@ package com.example.ba_1963.android_searchproduct_mvp.domain
 
 import com.example.ba_1963.android_searchproduct_mvp.data.SearchRepositoryInterface
 import com.example.ba_1963.android_searchproduct_mvp.presentation.models.ResultSearchUiModel
-import com.example.ba_1963.android_searchproduct_mvp.domain.mapper.SearchMapper
 import io.reactivex.Maybe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import com.example.ba_1963.android_searchproduct_mvp.App
 import com.example.ba_1963.android_searchproduct_mvp.R
+import com.example.ba_1963.android_searchproduct_mvp.presentation.adapter.SearchAdapter
 import com.example.ba_1963.android_searchproduct_mvp.presentation.models.DataItemUiModel
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -46,6 +47,8 @@ class MainActivity : AppCompatActivity(), SearchView {
                         layoutManager = recLayoutManager
                         adapter = itemAdapter
                     }
+                    presenter.onSearchButtonPressed(query = query, start = currPage)
+
                     swipeRefreshLayout.setOnRefreshListener{
                         currPage = 0
                         presenter.onSearchButtonPressed(query = query, start = currPage)
@@ -66,8 +69,6 @@ class MainActivity : AppCompatActivity(), SearchView {
                             }
                         }
                     })
-
-                    presenter.onSearchButtonPressed(query = query, start = currPage)
                     return false
                 }
 
