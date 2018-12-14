@@ -1,7 +1,5 @@
 package com.example.ba_1963.android_searchproduct_mvp.dagger
 
-import android.content.Context
-import com.example.ba_1963.android_searchproduct_mvp.App
 import com.example.ba_1963.android_searchproduct_mvp.BuildConfig
 import com.example.ba_1963.android_searchproduct_mvp.api.SearchApi
 import com.example.ba_1963.android_searchproduct_mvp.data.SearchRepository
@@ -31,18 +29,24 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideSearchRepository(): SearchRepositoryInterface {
-        return SearchRepository(provideSearchApi())
-    }
-
-    @Provides
-    @Singleton
-    fun provideSearchApi() : SearchApi {
+    fun provideRetrofit() : Retrofit {
         return retrofit2.Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(Constants.BASE_URL)
                 .client(provideOkHttpClient())
-                .build().create(SearchApi::class.java)
+                .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSearchApi() : SearchApi {
+        return provideRetrofit().create(SearchApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSearchRepository(): SearchRepositoryInterface {
+        return SearchRepository(provideSearchApi())
     }
 }
