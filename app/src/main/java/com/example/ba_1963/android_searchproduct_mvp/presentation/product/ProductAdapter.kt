@@ -1,20 +1,20 @@
-package com.example.ba_1963.android_searchproduct_mvp.presentation.adapter
+package com.example.ba_1963.android_searchproduct_mvp.presentation.product
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ba_1963.android_searchproduct_mvp.R
-import com.example.ba_1963.android_searchproduct_mvp.presentation.models.DataItemUiModel
+import com.example.ba_1963.android_searchproduct_mvp.presentation.models.product.ProductsItemUiModel
 import com.example.ba_1963.android_searchproduct_mvp.util.GlideApp
-import kotlinx.android.synthetic.main.list_item.view.*
+import kotlinx.android.synthetic.main.list_product_item.view.*
 
-class SearchAdapter : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
+class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
-    val data = mutableListOf<DataItemUiModel>()
+    val data = mutableListOf<ProductsItemUiModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false))
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_product_item, parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -23,28 +23,28 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.itemName.text = data[position].itemName
-        holder.itemView.itemPrice.text = data[position].itemPrice
+        holder.itemView.itemName.text = data[position].name
+        holder.itemView.itemPrice.text = data[position].price
 
-        if (data[position].itemImg.isNullOrEmpty()) {
+        if (data[position].imageUrl.isNullOrEmpty()) {
             holder.itemView.itemImg.visibility = View.GONE
         } else {
             holder.itemView.itemImg.visibility = View.VISIBLE
 
             GlideApp.with(holder.itemView.itemImg.context)
-                    .load(data[position].itemImg)
+                    .load(data[position].imageUrl)
                     .centerCrop()
                     .into(holder.itemView.itemImg)
         }
     }
 
-    fun updateData(newData: List<DataItemUiModel>) {
+    fun loadProduct(newItems: List<ProductsItemUiModel>) {
         data.clear()
-        data.addAll(newData)
+        data.addAll(newItems)
         notifyDataSetChanged()
     }
 
-    fun loadNextPage(newItems: List<DataItemUiModel>) {
+    fun loadProductNextPage(newItems: List<ProductsItemUiModel>) {
         data.addAll(newItems)
         notifyDataSetChanged()
     }

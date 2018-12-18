@@ -1,4 +1,4 @@
-package com.example.ba_1963.android_searchproduct_mvp.presentation.adapter
+package com.example.ba_1963.android_searchproduct_mvp.presentation
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -24,9 +24,8 @@ class SearchPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm){
     // judul untuk tabs
     override fun getPageTitle(position: Int): CharSequence? {
         return when(position){
-            0 -> "First Tab"
-            1 -> "Second Tab"
-            else -> "Third Tab"
+            0 -> "Produk"
+            else -> "Toko"
         }
     }
 }
