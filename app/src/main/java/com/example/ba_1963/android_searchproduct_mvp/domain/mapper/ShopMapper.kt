@@ -1,13 +1,25 @@
 package com.example.ba_1963.android_searchproduct_mvp.domain.mapper
 
-import com.example.ba_1963.android_searchproduct_mvp.data.models.shop.ResponseShop
-import com.example.ba_1963.android_searchproduct_mvp.data.models.shop.ResultShop
-import com.example.ba_1963.android_searchproduct_mvp.data.models.shop.ShopsItem
-import com.example.ba_1963.android_searchproduct_mvp.presentation.models.shop.ItemShopUiModel
-import com.example.ba_1963.android_searchproduct_mvp.presentation.models.shop.ResponseShopUiModel
-import com.example.ba_1963.android_searchproduct_mvp.presentation.models.shop.ResultShopUiModel
+import com.example.ba_1963.android_searchproduct_mvp.model.shop.ResponseShop
+import com.example.ba_1963.android_searchproduct_mvp.model.shop.ResultShop
+import com.example.ba_1963.android_searchproduct_mvp.model.shop.ShopsItem
+import com.example.ba_1963.android_searchproduct_mvp.presentation.uimodels.shop.ItemShopUiModel
+import com.example.ba_1963.android_searchproduct_mvp.presentation.uimodels.shop.ResponseShopUiModel
+import com.example.ba_1963.android_searchproduct_mvp.presentation.uimodels.shop.ResultShopUiModel
 
 object ShopMapper {
+    fun responseToListUiModel(responseShop: ResponseShop): List<ItemShopUiModel> {
+        val list = mutableListOf<ItemShopUiModel>()
+        responseShop.result.let { result->
+            result?.shops .let { shops ->
+                shops?.map {
+                    ShopMapper.shopsToUiModel(it)?.let(list::add)
+                }
+            }
+        }
+        return list
+    }
+
     fun responseToUiModel(responseShop: ResponseShop): ResponseShopUiModel? {
         responseShop.status?.let { status ->
             responseShop.result?.let { results ->

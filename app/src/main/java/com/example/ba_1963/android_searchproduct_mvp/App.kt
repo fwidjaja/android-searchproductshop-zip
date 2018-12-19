@@ -1,9 +1,9 @@
 package com.example.ba_1963.android_searchproduct_mvp
 
 import android.app.Application
-import com.example.ba_1963.android_searchproduct_mvp.dagger.AppComponent
-import com.example.ba_1963.android_searchproduct_mvp.dagger.AppModule
-import com.example.ba_1963.android_searchproduct_mvp.dagger.DaggerAppComponent
+import com.example.ba_1963.android_searchproduct_mvp.di.components.AppComponent
+import com.example.ba_1963.android_searchproduct_mvp.di.modules.AppModule
+import com.example.ba_1963.android_searchproduct_mvp.di.components.DaggerAppComponent
 
 class App: Application() {
     companion object{
