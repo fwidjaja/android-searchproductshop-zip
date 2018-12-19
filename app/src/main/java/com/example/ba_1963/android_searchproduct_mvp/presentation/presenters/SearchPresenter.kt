@@ -33,10 +33,12 @@ class SearchPresenter @Inject constructor(private val searchUseCase: SearchUseCa
                             productView.loadProduct(it)
                             productView.showLoading(false)
                         }
-                        /*productsAndShopsUiModel.shops.let {
-                            shopView.loadShop(it)
-                            shopView.showLoading(false)
-                        }*/
+                        _shopView?.let {shopView ->
+                            productsAndShopsUiModel.shops.let {
+                                shopView.loadShop(it)
+                                shopView.showLoading(false)
+                            }
+                        }
                     }
                 }
             }

@@ -42,6 +42,7 @@ class ProductFragment : Fragment(), ProductView {
 
         // presenter.onLoadProduct(_query, currPage)
         presenter.onLoadProductsAndShops(_query, currPage)
+        println("++ PRODUCT FRAGMENT")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

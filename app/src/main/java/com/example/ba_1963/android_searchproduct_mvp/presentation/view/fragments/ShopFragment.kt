@@ -39,6 +39,7 @@ class ShopFragment : Fragment(), ShopView {
         presenter.onShopViewCreated(this)
 
         _query = activity?.intent?.getStringExtra("query")
+        println("++ SHOP FRAGMENT")
 
         // presenter.onLoadShop(_query, currPage)
     }

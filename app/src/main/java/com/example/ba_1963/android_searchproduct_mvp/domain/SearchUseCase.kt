@@ -16,20 +16,20 @@ import javax.inject.Singleton
 
 @Singleton
 class SearchUseCase @Inject constructor(private val productRepository: ProductRepositoryInterface, private val shopRepository: ShopRepositoryInterface){
-    fun getDataProducts(device: String, ob: Int, q: String?, rows: Int, source: String, start: Int): Single<List<ProductsItemUiModel>> {
+    fun getDataProducts(device: String, ob: Int, q: String?, rows: Int, source: String, start: Int): Observable<List<ProductsItemUiModel>> {
         return this.productRepository.getProductData(device, ob, q, rows, source, start)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getDataShops(device: String, q: String?, rows: Int, source: String, start: Int): Single<List<ItemShopUiModel>> {
+    fun getDataShops(device: String, q: String?, rows: Int, source: String, start: Int): Observable<List<ItemShopUiModel>> {
         return this.shopRepository.getShopData(device, q, rows, source, start)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getProductsAndShops(device: String, ob: Int, q: String?, rows: Int, source: String, start: Int): Single<ProductsAndShopsUiModel> {
-        return Single.zip(
+    fun getProductsAndShops(device: String, ob: Int, q: String?, rows: Int, source: String, start: Int): Observable<ProductsAndShopsUiModel> {
+        return Observable.zip(
                 productRepository.getProductData(device, ob, q, rows, source, start),
                 shopRepository.getShopData(device, q, rows, source, start),
                 BiFunction<List<ProductsItemUiModel>, List<ItemShopUiModel>, ProductsAndShopsUiModel>

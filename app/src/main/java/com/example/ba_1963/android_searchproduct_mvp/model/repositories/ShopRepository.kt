@@ -8,12 +8,11 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
-@Suppress("UNCHECKED_CAST", "SENSELESS_COMPARISON", "CAST_NEVER_SUCCEEDS")
+@Suppress("UNCHECKED_CAST", "SENSELESS_COMPARISON")
 class ShopRepository @Inject constructor(private val remoteShopDataSource: ApiService): ShopRepositoryInterface {
-    override fun getShopData(device: String, q: String?, rows: Int, source: String, start: Int): Single<List<ItemShopUiModel>> {
-        return Single.fromObservable { _ ->
-            remoteShopDataSource.searchShop(device, q, rows, source, start)
+    override fun getShopData(device: String, q: String?, rows: Int, source: String, start: Int): Observable<List<ItemShopUiModel>> {
+            return remoteShopDataSource.searchShop(device, q, rows, source, start)
                 .map { ShopMapper.responseToListUiModel(it) }
-                .filter { it != null } }
+                .filter { it != null }
     }
 }
