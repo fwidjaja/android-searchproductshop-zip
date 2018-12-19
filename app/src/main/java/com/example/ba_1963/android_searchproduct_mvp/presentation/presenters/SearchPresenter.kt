@@ -18,32 +18,61 @@ class SearchPresenter @Inject constructor(private val searchUseCase: SearchUseCa
     private val _source: String = "search"
 
     fun onLoadProductsAndShops(q: String?, start: Int) {
-        _productView?.let { productView ->
-            _query = q
-            _query?.let { _ ->
-                _start = start
-                _start.let { start ->
-                    productView.showLoading(true)
-                    // shopView.showLoading(true)
-                    searchUseCase.getProductsAndShops(_device, _ob, q, _rows, _source, start)
+            q?.let { query ->
+                _query = query
+                start.let { start ->
+                    _start = start
+                    searchUseCase.getProductsAndShops(_device, _ob, query, _rows, _source, start)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe { productsAndShopsUiModel ->
-                        productsAndShopsUiModel.products.let {
-                            productView.loadProduct(it)
-                            productView.showLoading(false)
-                        }
-                        _shopView?.let {shopView ->
-                            productsAndShopsUiModel.shops.let {
-                                shopView.loadShop(it)
-                                shopView.showLoading(false)
-                            }
-                        }
-                    }
+                            .subscribe ({ productsAndShopsUiModel ->
+                                productsAndShopsUiModel.products.let {
+                                    _productView?.loadProduct(it)
+                                }
+                                productsAndShopsUiModel.shops.let {
+                                    _shopView?.loadShop(it)
+                                }
+                            }, { error ->
+                                // productView.showLoading(false)
+                                // shopView.showLoading(false)
+                                println("++ ERROR ${error.localizedMessage}")
+                            })
                 }
             }
-        }
     }
+
+    /*fun onLoadProductsAndShops(q: String?, start: Int) {
+        _productView?.let { productView ->
+            // _shopView?.let { shopView ->
+                _query = q
+                _query?.let { _ ->
+                    _start = start
+                    _start.let { start ->
+                        productView.showLoading(true)
+                        // shopView.showLoading(true)
+                        searchUseCase.getProductsAndShops(_device, _ob, q, _rows, _source, start)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe({productsAndShopsUiModel ->
+                                    productsAndShopsUiModel.products.let {
+                                        productView.loadProduct(it)
+                                        productView.showLoading(false)
+                                    }
+                                    *//*productsAndShopsUiModel.shops.let {
+                                        shopView.loadShop(it)
+                                        shopView.showLoading(false)
+                                    }*//*
+
+                                }, { error ->
+                                    productView.showLoading(false)
+                                    // shopView.showLoading(false)
+                                    println("++ ${error.localizedMessage}")
+                                })
+                    }
+                }
+            // }
+        }
+    }*/
 
     fun onLoadProduct(q: String?, start: Int) {
         _productView?.let { view ->

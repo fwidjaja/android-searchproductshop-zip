@@ -3,9 +3,7 @@ package com.example.ba_1963.android_searchproduct_mvp.model.repositories
 import com.example.ba_1963.android_searchproduct_mvp.model.services.ApiService
 import com.example.ba_1963.android_searchproduct_mvp.domain.mapper.ShopMapper
 import com.example.ba_1963.android_searchproduct_mvp.presentation.uimodels.shop.ItemShopUiModel
-import com.example.ba_1963.android_searchproduct_mvp.presentation.uimodels.shop.ResponseShopUiModel
 import io.reactivex.Observable
-import io.reactivex.Single
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST", "SENSELESS_COMPARISON")
