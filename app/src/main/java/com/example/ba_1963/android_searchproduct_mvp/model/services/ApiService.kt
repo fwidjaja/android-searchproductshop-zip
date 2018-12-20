@@ -2,7 +2,7 @@ package com.example.ba_1963.android_searchproduct_mvp.model.services
 
 import com.example.ba_1963.android_searchproduct_mvp.model.product.ResponseProduct
 import com.example.ba_1963.android_searchproduct_mvp.model.shop.ResponseShop
-import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -14,7 +14,7 @@ interface ApiService {
                       @Query("q") q: String?,
                       @Query("rows") rows: Int,
                       @Query("source") source: String,
-                      @Query("start") start: Int) : Observable<ResponseProduct?>
+                      @Query("start") start: Int) : Single<ResponseProduct?>
 
     // http://ace.tokopedia.com/search/v1/shop?device=android&q=baju&rows=12&source=search&start=0
     @GET("search/v1/shop")
@@ -22,6 +22,6 @@ interface ApiService {
                       @Query("q") q: String?,
                       @Query("rows") rows: Int,
                       @Query("source") source: String,
-                      @Query("start") start: Int) : Observable<ResponseShop?>
+                      @Query("start") start: Int) : Single<ResponseShop?>
 
 }

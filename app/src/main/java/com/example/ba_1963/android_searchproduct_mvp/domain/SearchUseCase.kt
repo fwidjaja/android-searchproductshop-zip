@@ -5,8 +5,6 @@ import com.example.ba_1963.android_searchproduct_mvp.model.repositories.ShopRepo
 import com.example.ba_1963.android_searchproduct_mvp.presentation.uimodels.ProductsAndShopsUiModel
 import com.example.ba_1963.android_searchproduct_mvp.presentation.uimodels.product.ProductsItemUiModel
 import com.example.ba_1963.android_searchproduct_mvp.presentation.uimodels.shop.ItemShopUiModel
-import io.reactivex.Maybe
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
@@ -16,20 +14,20 @@ import javax.inject.Singleton
 
 @Singleton
 class SearchUseCase @Inject constructor(private val productRepository: ProductRepositoryInterface, private val shopRepository: ShopRepositoryInterface){
-    fun getDataProducts(device: String, ob: Int, q: String?, rows: Int, source: String, start: Int): Observable<List<ProductsItemUiModel>> {
+    fun getDataProducts(device: String, ob: Int, q: String?, rows: Int, source: String, start: Int): Single<List<ProductsItemUiModel>> {
         return this.productRepository.getProductData(device, ob, q, rows, source, start)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getDataShops(device: String, q: String?, rows: Int, source: String, start: Int): Observable<List<ItemShopUiModel>> {
+    fun getDataShops(device: String, q: String?, rows: Int, source: String, start: Int): Single<List<ItemShopUiModel>> {
         return this.shopRepository.getShopData(device, q, rows, source, start)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getProductsAndShops(device: String, ob: Int, q: String?, rows: Int, source: String, start: Int): Observable<ProductsAndShopsUiModel> {
-        return Observable.zip(
+    fun getProductsAndShops(device: String, ob: Int, q: String?, rows: Int, source: String, start: Int): Single<ProductsAndShopsUiModel> {
+        return Single.zip(
                 productRepository.getProductData(device, ob, q, rows, source, start),
                 shopRepository.getShopData(device, q, rows, source, start),
                 BiFunction<List<ProductsItemUiModel>, List<ItemShopUiModel>, ProductsAndShopsUiModel>

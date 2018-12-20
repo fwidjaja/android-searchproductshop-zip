@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">searchproduct-mvp-rxjava2-dagger2-clean</string>
+    <string name="app_name">Products &amp; Shops</string>
     <string name="main_menu_search_title">Search</string>
     <string name="img">img</string>
     <string name="shop_icon">shopIcon</string>
@@ -7,6 +7,7 @@
     <string name="shop_product2">shopProduct2</string>
     <string name="shop_product3">shopProduct3</string>
     <string name="shop_reputation">shopReputation</string>
+    <string name="shop_button"> + Favoritkan</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
