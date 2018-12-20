@@ -39,26 +39,4 @@ class AppModule {
                 .client(provideOkHttpClient())
                 .build().create(ApiService::class.java)
     }
-
-    @Provides
-    @Singleton
-    fun provideProductRepository(): ProductRepositoryInterface {
-        return ProductRepository(Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.BASE_URL)
-                .client(provideOkHttpClient())
-                .build().create(ApiService::class.java))
-    }
-
-    @Provides
-    @Singleton
-    fun provideShopRepository(): ShopRepositoryInterface {
-        return ShopRepository(Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Constants.BASE_URL)
-                .client(provideOkHttpClient())
-                .build().create(ApiService::class.java))
-    }
 }

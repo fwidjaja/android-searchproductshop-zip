@@ -6,11 +6,9 @@ import com.example.ba_1963.android_searchproduct_mvp.presentation.uimodels.produ
 import io.reactivex.Observable
 import javax.inject.Inject
 
-@Suppress("UNCHECKED_CAST", "SENSELESS_COMPARISON")
-class ProductRepository @Inject constructor(private val remoteProductDataSource: ApiService): ProductRepositoryInterface {
+class ProductRepository @Inject constructor(private val apiService: ApiService): ProductRepositoryInterface {
     override fun getProductData(device: String, ob: Int, q: String?, rows: Int, source: String, start: Int): Observable<List<ProductsItemUiModel>> {
-        return remoteProductDataSource.searchProduct(device, ob, q, rows, source, start)
+        return apiService.searchProduct(device, ob, q, rows, source, start)
             .map { ProductMapper.responseToListUiModel(it) }
-            .filter { it != null }
     }
 }

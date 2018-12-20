@@ -16,6 +16,7 @@ import com.example.ba_1963.android_searchproduct_mvp.presentation.presenters.Sea
 import com.example.ba_1963.android_searchproduct_mvp.presentation.uimodels.ProductsAndShopsUiModel
 import com.example.ba_1963.android_searchproduct_mvp.presentation.view.ProductView
 import com.example.ba_1963.android_searchproduct_mvp.presentation.uimodels.product.ProductsItemUiModel
+import com.example.ba_1963.android_searchproduct_mvp.presentation.view.activities.SearchActivity
 import kotlinx.android.synthetic.main.fragment_product.*
 import javax.inject.Inject
 
@@ -35,14 +36,12 @@ class ProductFragment : Fragment(), ProductView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        App.appComponent.inject(this)
+        (activity as SearchActivity).searchComponent.inject(this)
         presenter.onProductViewCreated(this)
 
         _query = activity?.intent?.getStringExtra("query")
 
-        // presenter.onLoadProduct(_query, currPage)
         presenter.onLoadProductsAndShops(_query, currPage)
-        println("++ PRODUCT FRAGMENT")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

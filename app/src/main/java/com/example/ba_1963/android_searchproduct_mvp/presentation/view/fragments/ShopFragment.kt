@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.ba_1963.android_searchproduct_mvp.App
 
 import com.example.ba_1963.android_searchproduct_mvp.R
 import com.example.ba_1963.android_searchproduct_mvp.presentation.view.adapters.ShopAdapter
@@ -16,6 +15,7 @@ import com.example.ba_1963.android_searchproduct_mvp.presentation.presenters.Sea
 import com.example.ba_1963.android_searchproduct_mvp.presentation.uimodels.ProductsAndShopsUiModel
 import com.example.ba_1963.android_searchproduct_mvp.presentation.view.ShopView
 import com.example.ba_1963.android_searchproduct_mvp.presentation.uimodels.shop.ItemShopUiModel
+import com.example.ba_1963.android_searchproduct_mvp.presentation.view.activities.SearchActivity
 import kotlinx.android.synthetic.main.fragment_product.*
 import javax.inject.Inject
 
@@ -35,13 +35,10 @@ class ShopFragment : Fragment(), ShopView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        App.appComponent.inject(this)
+        (activity as SearchActivity).searchComponent.inject(this)
         presenter.onShopViewCreated(this)
 
         _query = activity?.intent?.getStringExtra("query")
-        println("++ SHOP FRAGMENT")
-
-        // presenter.onLoadShop(_query, currPage)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
